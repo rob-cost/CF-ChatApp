@@ -19,8 +19,10 @@ const Screen1 = ({ navigation }) => {
       style={styles.background}
       source={require("../assets/background.png")}
     >
-      <Text style={styles.title}>AppTitle</Text>
-      <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>AppTitle</Text>
+      </View>
+      <View style={styles.bottomContainer}>
         <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
@@ -37,6 +39,7 @@ const Screen1 = ({ navigation }) => {
             {colors.map((col) => {
               return (
                 <TouchableOpacity
+                  key={col}
                   style={[
                     styles.colorButton,
                     { backgroundColor: col },
@@ -73,7 +76,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
+  },
+
+  titleContainer: {
+    alignItems: "center",
+    margin: "20%",
   },
 
   title: {
@@ -82,12 +90,13 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
 
-  container: {
+  bottomContainer: {
     height: "44%",
     width: "88%",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "white",
+    margin: 12,
   },
 
   textInputContainer: {
