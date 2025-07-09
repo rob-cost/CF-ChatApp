@@ -37,6 +37,7 @@ const Screen1 = ({ navigation }) => {
           </Text>
           <View style={styles.colorButtonContainer}>
             {colors.map((col) => {
+              // CREATE A BUTTON FOR EACH COLOR
               return (
                 <TouchableOpacity
                   key={col}
@@ -70,6 +71,7 @@ const Screen1 = ({ navigation }) => {
   );
 };
 
+/* --- STLYE OF THE COMPONENTS --- */
 const styles = StyleSheet.create({
   background: {
     flex: 1,
