@@ -13,6 +13,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app uses the microphone to process your voice.",
+        "NSCameraUsageDescription": "This app needs access to your camera."
+      },
       "supportsTablet": true
     },
     "android": {

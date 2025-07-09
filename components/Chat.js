@@ -5,6 +5,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
 } from "react-native";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
 
@@ -54,7 +55,7 @@ const Chat = ({ route, navigation }) => {
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: "#000",
+            backgroundColor: "#075e54",
           },
           left: {
             backgroundColor: "#FFF",
@@ -66,6 +67,15 @@ const Chat = ({ route, navigation }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: color }]}>
+      <View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ChatBot");
+          }}
+        >
+          <Text style={styles.chatbotText}>Ask Chat-Bot</Text>
+        </TouchableOpacity>
+      </View>
       <GiftedChat
         messages={messages}
         onSend={(messages) => onSend(messages)}
@@ -85,6 +95,13 @@ const Chat = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  chatbotText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "300",
+    margin: "10",
+    textAlign: "center",
   },
 });
 
