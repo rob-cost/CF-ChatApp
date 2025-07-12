@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,8 +6,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
-} from "react-native";
-import { Bubble, GiftedChat } from "react-native-gifted-chat";
+} from 'react-native';
+import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 
 const Chat = ({ route, navigation }) => {
   const { name } = route.params;
@@ -28,14 +28,14 @@ const Chat = ({ route, navigation }) => {
       {
         _id: 2,
         createdAt: new Date(),
-        text: "Hello, how are you doing?",
+        text: 'Hello, how are you doing?',
         sent: true,
         receive: true,
         pending: true,
         user: {
           _id: 2,
-          name: "React Native",
-          avatar: "",
+          name: 'React Native',
+          avatar: '',
         },
       },
     ]);
@@ -55,10 +55,10 @@ const Chat = ({ route, navigation }) => {
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: "#075e54",
+            backgroundColor: '#075e54',
           },
           left: {
-            backgroundColor: "#FFF",
+            backgroundColor: '#FFF',
           },
         }}
       />
@@ -70,10 +70,10 @@ const Chat = ({ route, navigation }) => {
       <View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("ChatBot");
+            navigation.navigate('ChatBot');
           }}
         >
-          <Text style={styles.chatbotText}>Ask Chat-Bot</Text>
+          <Text style={styles.chatbotText}>Ask Chat-Bot!</Text>
         </TouchableOpacity>
       </View>
       <GiftedChat
@@ -84,7 +84,7 @@ const Chat = ({ route, navigation }) => {
           _id: 1,
         }}
       />
-      {Platform.OS === "android" ? (
+      {Platform.OS === 'android' ? (
         <KeyboardAvoidingView behavior="height" />
       ) : null}
     </View>
@@ -97,11 +97,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   chatbotText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
-    fontWeight: "300",
-    margin: "10",
-    textAlign: "center",
+    fontWeight: '300',
+    margin: '10',
+    textAlign: 'center',
   },
 });
 
