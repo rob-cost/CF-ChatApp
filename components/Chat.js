@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   addDoc,
   collection,
   onSnapshot,
   orderBy,
   query,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 import {
   View,
   StyleSheet,
@@ -14,8 +14,8 @@ import {
   Platform,
   TouchableOpacity,
   Alert,
-} from 'react-native';
-import { Bubble, GiftedChat } from 'react-native-gifted-chat';
+} from "react-native";
+import { Bubble, GiftedChat } from "react-native-gifted-chat";
 
 const Chat = ({ route, navigation, db }) => {
   const { name, color, userID } = route.params; // REN: Received name, userID and color from Start.js while navigating
@@ -27,10 +27,10 @@ const Chat = ({ route, navigation, db }) => {
     // Ren: Using firestore onSnapshot, we query messages from firebase and set it to messages state.
     // https://firebase.google.com/docs/firestore/query-data/listen
     let unSubscribeMsgs;
-    const q = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
+    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
     unSubscribeMsgs = onSnapshot(q, (querySnapshot) => {
       let newMsgs = [];
-      console.log('TEST: Fetch All Messages', querySnapshot);
+      console.log("TEST: Fetch All Messages", querySnapshot);
       /*
       REN: DOC looks like
       {"_id": "7ff117f1-ba59-468a-a65a-9ecf63c244cf", 
@@ -46,21 +46,21 @@ const Chat = ({ route, navigation, db }) => {
       querySnapshot.forEach((doc) => {
         newMsgs.push({
           _id: doc.data()._id, // REN: Not sure _id or id, we need to test it later
-          text: doc.data().text || null,
-          user: {
-            _id: doc.data().user._id,
-            name:
-              doc.data().user.name &&
-              (doc.data().user.name.name || 'Anonymous'), // REN: This is the culprit for userName.toUpperCase() not function error
-          },
-          //...doc.data(), // REN: DELETE all the docs in the firebase, then enable this line and delete above 7 lines.
+          // text: doc.data().text || null,
+          // user: {
+          //   _id: doc.data().user._id,
+          //   name:
+          //     doc.data().user.name &&
+          //     (doc.data().user.name.name || 'Anonymous'), // REN: This is the culprit for userName.toUpperCase() not function error
+          // },
+          ...doc.data(), // REN: DELETE all the docs in the firebase, then enable this line and delete above 7 lines.
           createdAt: new Date(doc.data().createdAt.toMillis()),
         });
       });
-
-      newMsgs.length
-        ? setMessages(newMsgs)
-        : Alert.alert('Error fetching messages!');
+      setMessages(newMsgs);
+      // newMsgs.length
+      //   ? setMessages(newMsgs)
+      //   : Alert.alert("Error fetching messages!");
     });
 
     // Ren: Clean up code
@@ -74,8 +74,8 @@ const Chat = ({ route, navigation, db }) => {
   // sending message function
   const onSend = (newMsg) => {
     // Ren: We push the message to the Firebase using addDoc method
-    console.log('TEST: Send Message', newMsg[0]);
-    addDoc(collection(db, 'messages'), newMsg[0]);
+    console.log("TEST: Send Message", newMsg[0]);
+    addDoc(collection(db, "messages"), newMsg[0]);
   };
 
   // customise message bubble
@@ -85,10 +85,10 @@ const Chat = ({ route, navigation, db }) => {
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: '#075e54',
+            backgroundColor: "#075e54",
           },
           left: {
-            backgroundColor: '#FFF',
+            backgroundColor: "#FFF",
           },
         }}
       />
@@ -100,7 +100,7 @@ const Chat = ({ route, navigation, db }) => {
       <View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ChatBot');
+            navigation.navigate("ChatBot");
           }}
         >
           <Text style={styles.chatbotText}>Ask Chat-Bot!</Text>
@@ -115,7 +115,7 @@ const Chat = ({ route, navigation, db }) => {
           name: name,
         }}
       />
-      {Platform.OS === 'android' ? (
+      {Platform.OS === "android" ? (
         <KeyboardAvoidingView behavior="height" />
       ) : null}
     </View>
@@ -128,11 +128,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   chatbotText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '300',
-    margin: '10',
-    textAlign: 'center',
+    fontWeight: "300",
+    margin: "10",
+    textAlign: "center",
   },
 });
 
