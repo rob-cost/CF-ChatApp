@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   View,
   Button,
@@ -8,28 +8,32 @@ import {
   ImageBackground,
   TouchableOpacity,
   Alert,
-} from 'react-native';
-import { getAuth, signInAnonymously } from 'firebase/auth';
+} from "react-native";
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 const Start = ({ navigation }) => {
-  const [name, setName] = useState('');
-  const [color, setColor] = useState('');
-  const colors = ['#090C08', '#474056', '#8A95A5', '#B9C6AE'];
+  const [name, setName] = useState("");
+  const [color, setColor] = useState("");
+  const colors = ["#090C08", "#474056", "#8A95A5", "#B9C6AE"];
 
   // Handle Anonymous Auth and navigate to Chat
   const signInUser = () => {
     const auth = getAuth();
     signInAnonymously(auth)
       .then((result) => {
-        console.log('TEST: User Sign-In Successfully', result.user.uid);
-        navigation.navigate('Chat', {
-          userID: result.user.uid,
-          name: name || 'Anonymous',
-          color,
-        });
+        console.log("TEST: User Sign-In Successfully", result.user.uid);
+        if (color && name) {
+          navigation.navigate("Chat", {
+            userID: result.user.uid,
+            name: name || "Anonymous",
+            color,
+          });
+        } else {
+          Alert.alert("Please pick a color and a name");
+        }
       })
       .catch((err) => {
-        Alert.alert('Unable to sign in, try again.');
+        Alert.alert("Unable to sign in, try again.");
         console.log(err);
       });
   };
@@ -37,7 +41,7 @@ const Start = ({ navigation }) => {
   return (
     <ImageBackground
       style={styles.background}
-      source={require('../assets/background.png')}
+      source={require("../assets/background.png")}
     >
       <View style={styles.titleContainer}>
         <Text style={styles.title}>AppTitle</Text>
@@ -86,68 +90,68 @@ const Start = ({ navigation }) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 
   titleContainer: {
-    alignItems: 'center',
-    margin: '20%',
+    alignItems: "center",
+    margin: "20%",
   },
 
   title: {
     fontSize: 45,
-    fontWeight: '600',
-    color: '#FFFFFF',
+    fontWeight: "600",
+    color: "#FFFFFF",
   },
 
   bottomContainer: {
-    height: '44%',
-    width: '88%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    height: "44%",
+    width: "88%",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "white",
     margin: 12,
   },
 
   textInputContainer: {
     flex: 3,
-    width: '88%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "88%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   textInput: {
-    width: '100%',
+    width: "100%",
     padding: 15,
     borderWidth: 1,
     fontSize: 16,
-    fontWeight: '300',
-    color: '#757083',
+    fontWeight: "300",
+    color: "#757083",
   },
 
   colorContainer: {
     flex: 5,
-    width: '88%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "88%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   colorTextContainer: {
     fontSize: 16,
-    fontWeight: '300',
-    color: '#757083',
+    fontWeight: "300",
+    color: "#757083",
     opacity: 1,
-    width: '100%',
+    width: "100%",
   },
 
   colorButtonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
     padding: 8,
   },
 
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 20,
-    backgroundColor: 'purple',
+    backgroundColor: "purple",
   },
 
   selectedColorButton: {
@@ -164,22 +168,22 @@ const styles = StyleSheet.create({
 
   buttonContanier: {
     flex: 3,
-    width: '88%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "88%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   button: {
-    backgroundColor: '#757083',
-    width: '100%',
+    backgroundColor: "#757083",
+    width: "100%",
     padding: 15,
   },
 
   buttonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
+    fontWeight: "600",
+    textAlign: "center",
   },
 });
 
