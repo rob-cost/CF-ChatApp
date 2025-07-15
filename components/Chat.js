@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import {
   addDoc,
   collection,
@@ -17,8 +18,10 @@ import {
 } from "react-native";
 import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomActions from "./CustomActions";
+import MapView from "react-native-maps";
 
-const Chat = ({ route, navigation, db, isConnected }) => {
+const Chat = ({ route, navigation, db, isConnected, storage }) => {
   const { name, color, userID } = route.params; // Received name, userID and color from Start.js while navigating
   const [messages, setMessages] = useState([]); // Create state for message
   let unSubscribeMsgs;
@@ -43,8 +46,6 @@ const Chat = ({ route, navigation, db, isConnected }) => {
         // We set the value of messages with the value fetched from the db
         cacheMessages(newMsgs);
         setMessages(newMsgs);
-        console.log(isConnected);
-        console.log(cacheMessages);
       });
     } else {
       loadCacheMessages();
@@ -85,10 +86,20 @@ const Chat = ({ route, navigation, db, isConnected }) => {
   };
 
   // sending message function
-  const onSend = newMsg => {
-    // We push the message to the Firebase using addDoc method
-    console.log("TEST: Send Message", newMsg[0]);
-    addDoc(collection(db, "messages"), newMsg[0]);
+  const onSend = async newMsg => {
+    try {
+      // We push the message to the Firebase using addDoc method
+      addDoc(collection(db, "messages"), newMsg[0]);
+      console.log("Message sent successfulyy to FireStore:", newMsg);
+    } catch (err) {
+      console.log("Unable to send message to FireStore:", err);
+    }
+  };
+
+  // override input toolbar if connection is lost
+  const renderInputToolbar = props => {
+    if (isConnected) return <InputToolbar {...props} />;
+    else return null;
   };
 
   // customise message bubble
@@ -108,10 +119,38 @@ const Chat = ({ route, navigation, db, isConnected }) => {
     );
   };
 
-  // override input toolbar if connection is lost
-  const renderInputToolbar = props => {
-    if (isConnected) return <InputToolbar {...props} />;
-    else return null;
+  const renderCustomActions = props => {
+    return (
+      <CustomActions
+        {...props}
+        onSend={onSend}
+        userID={userID}
+        storage={storage}
+      />
+    );
+  };
+
+  const renderCustomView = props => {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{
+            width: 150,
+            height: 100,
+            borderRadius: 13,
+            margin: 3,
+          }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
   };
 
   return (
@@ -129,6 +168,8 @@ const Chat = ({ route, navigation, db, isConnected }) => {
         messages={messages}
         onSend={messages => onSend(messages)}
         renderBubble={renderBubble}
+        renderActions={renderCustomActions}
+        renderCustomView={renderCustomView}
         renderInputToolbar={renderInputToolbar}
         user={{
           _id: userID,

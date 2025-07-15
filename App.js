@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import ChatBot from "./components/ChatBot";
 import { useNetInfo } from "@react-native-community/netinfo";
+import { getStorage } from "firebase/storage";
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ const App = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const connectionStatus = useNetInfo(); // Returns boolean value depending from the connection state
+  const storage = getStorage();
 
   // Check tthe connection status
   useEffect(() => {
@@ -49,6 +51,7 @@ const App = () => {
             <Chat
               isConnected={connectionStatus.isConnected}
               db={db}
+              storage={storage}
               {...props}
             />
           )}

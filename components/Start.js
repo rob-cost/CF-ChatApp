@@ -20,7 +20,7 @@ const Start = ({ navigation }) => {
   const signInUser = () => {
     const auth = getAuth();
     signInAnonymously(auth)
-      .then((result) => {
+      .then(result => {
         console.log("TEST: User Sign-In Successfully", result.user.uid);
         if (color && name) {
           navigation.navigate("Chat", {
@@ -32,7 +32,7 @@ const Start = ({ navigation }) => {
           Alert.alert("Please pick a color and a name");
         }
       })
-      .catch((err) => {
+      .catch(err => {
         Alert.alert("Unable to sign in, try again.");
         console.log(err);
       });
@@ -44,7 +44,7 @@ const Start = ({ navigation }) => {
       source={require("../assets/background.png")}
     >
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>AppTitle</Text>
+        <Text style={styles.title}>Chat-App</Text>
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.textInputContainer}>
@@ -60,7 +60,7 @@ const Start = ({ navigation }) => {
             Choose Background Color:
           </Text>
           <View style={styles.colorButtonContainer}>
-            {colors.map((col) => {
+            {colors.map(col => {
               // CREATE A BUTTON FOR EACH COLOR
               return (
                 <TouchableOpacity
