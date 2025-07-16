@@ -94,7 +94,7 @@ The Chat App is a cross-platform mobile application built using React Native and
 
 ## Interface examples
 
-<img width="400" height="800" alt="Simulator Screenshot - iPhone 15 Pro - 2025-07-16 at 16 55 39" src="https://github.com/user-attachments/assets/bae250ee-c862-450f-b263-612c22594376" />
+<img width="300" height="700" alt="Simulator Screenshot - iPhone 15 Pro - 2025-07-16 at 16 55 39" src="https://github.com/user-attachments/assets/bae250ee-c862-450f-b263-612c22594376" />
 
 <img width="300" height="700" alt="Simulator Screenshot - iPhone 15 Pro - 2025-07-16 at 16 56 43" src="https://github.com/user-attachments/assets/93236c5b-b248-450a-8582-b5b47af0d1e5" />
 
