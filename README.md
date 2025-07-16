@@ -12,6 +12,7 @@ The Chat App is a cross-platform mobile application built using React Native and
 - [Tech Stack](#-tech-stack)
 - [Features](#-features)
 - [Usage](#-usage)
+- [Interface examples](#-interface-examples)
 
 ---
 
@@ -49,6 +50,7 @@ The Chat App is a cross-platform mobile application built using React Native and
 - Node.js
 - Expo CLI (`npm install -g expo-cli`)
 - Firebase project with Firestore, Storage, and Authentication enabled
+
 
 ### Getting Started
 
@@ -88,4 +90,13 @@ The Chat App is a cross-platform mobile application built using React Native and
 3. Send text messages
 4. Tap the + button to send images from your library, share your location, or take a picture
 5. View messages and media from all users in real time
+
+
+## Interface examples
+
+<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 15 Pro - 2025-07-16 at 16 55 39" src="https://github.com/user-attachments/assets/bae250ee-c862-450f-b263-612c22594376" />
+
+<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 15 Pro - 2025-07-16 at 16 56 43" src="https://github.com/user-attachments/assets/93236c5b-b248-450a-8582-b5b47af0d1e5" />
+
+<img width="1179" height="2556" alt="Simulator Screenshot - iPhone 15 Pro - 2025-07-16 at 16 56 28" src="https://github.com/user-attachments/assets/dc390291-a857-4998-818d-769025a2e026" />
 
