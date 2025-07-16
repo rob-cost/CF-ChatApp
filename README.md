@@ -63,7 +63,6 @@ The Chat App is a cross-platform mobile application built using React Native and
 2. Install dependencies:
    ```bash
    npm install
-   npm I 
    ```
    
 3. Set up Firebase credentials:
