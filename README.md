@@ -2,7 +2,7 @@
 
 ##  Project Overview
 
-The Chat App is a cross-platform mobile application built using React Native and Expo. It allows users to chat in real-time with additional multimedia functionality such as sharing images, taking photos, and sending location data. The app uses Firebase for authentication, cloud storage, and real-time database capabilities.
+The Chat App is a cross-platform mobile application built using React Native and Expo. It allows users to chat in real-time room with additional multimedia functionality such as sharing images, taking photos, and sending location data. The app uses Firebase for authentication, cloud storage, and real-time database capabilities.
 
 ---
 
@@ -30,6 +30,7 @@ The Chat App is a cross-platform mobile application built using React Native and
 ##  Features
 
 - ✅ Built entirely in **React Native** using the **Expo** CLI
+- ✅ **Gifted Chat** is used to provide a smooth and customizable chat UI
 - ✅ Styled according to a predefined screen design
 - ✅ **Anonymous authentication** using Firebase Authentication
 - ✅ Real-time **chat functionality** powered by Firestore
@@ -38,8 +39,6 @@ The Chat App is a cross-platform mobile application built using React Native and
 - ✅ Ability to **take photos** using the device camera and send them
 - ✅ All images are stored in **Firebase Cloud Storage**
 - ✅ Ability to **send current location**, displayed as a map inside the chat
-- ✅ Clean and modular codebase with **detailed comments**
-- ✅ **Gifted Chat** is used to provide a smooth and customizable chat UI
 
 ---
 
@@ -55,5 +54,38 @@ The Chat App is a cross-platform mobile application built using React Native and
 
 1. Clone this repo:
    ```bash
-   git clone https://github.com/your-username/chat-app.git
-   cd chat-app
+   git clone https://github.com/rob-cost/CF-ChatApp.git
+   cd CF-ChatApp
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   npm I 
+   ```
+   
+3. Set up Firebase credentials:
+   Go to your Firebase general settings and copy the project credentials
+   The Firebase configuration is in App.js
+   ```bash
+   FIREBASE_API_KEY=your-api-key
+   FIREBASE_AUTH_DOMAIN=your-auth-domain
+   FIREBASE_PROJECT_ID=your-project-id
+   FIREBASE_STORAGE_BUCKET=your-storage-bucket
+   FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+   FIREBASE_APP_ID=your-app-id
+   ```
+   
+4. Run the App
+   ```bash
+   npx expo start
+   ```
+
+###  How to use the app
+
+1. Launch the app.
+2. Enter a username, select a background color, and start chatting.
+3. Send text messages
+4. Tap the + button to send images from your library, share your location, or take a picture
+5. View messages and media from all users in real time
+
