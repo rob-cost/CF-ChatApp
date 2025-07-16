@@ -90,7 +90,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
     try {
       // We push the message to the Firebase using addDoc method
       addDoc(collection(db, "messages"), newMsg[0]);
-      console.log("Message sent successfulyy to FireStore:", newMsg);
+      console.log("Message sent successfuly to FireStore:", newMsg);
     } catch (err) {
       console.log("Unable to send message to FireStore:", err);
     }
@@ -120,6 +120,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
   };
 
   const renderCustomActions = props => {
+    console.log("TEST: show props: ", props);
     return (
       <CustomActions
         {...props}
@@ -132,6 +133,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
 
   const renderCustomView = props => {
     const { currentMessage } = props;
+    console.log("TEST: show props 2: ", currentMessage);
     if (currentMessage.location) {
       return (
         <MapView

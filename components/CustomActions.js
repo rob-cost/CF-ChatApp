@@ -13,6 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import { useState } from "react";
 import { ref } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const CustomActions = ({
   wrapperStyle,
@@ -23,7 +24,6 @@ const CustomActions = ({
 }) => {
   const actionSheet = useActionSheet();
   const [image, setImage] = useState(null); // Create a state for images
-  const [location, setLocation] = useState(null); // Create a state for locations
 
   const onActionPress = () => {
     const options = [
@@ -49,6 +49,33 @@ const CustomActions = ({
         }
       }
     );
+  };
+  const messageID = uuidv4();
+  const getLocation = async () => {
+    let permissions = await Location.requestForegroundPermissionsAsync();
+
+    if (permissions?.granted) {
+      const location = await Location.getCurrentPositionAsync({});
+      console.log("TEST: The location received: ", location);
+      if (location) {
+        onSend([
+          {
+            _id: messageID,
+            createdAt: new Date(),
+            user: {
+              _id: userID,
+            },
+
+            location: {
+              longitude: location.coords.longitude,
+              latitude: location.coords.latitude,
+            },
+          },
+        ]);
+      } else Alert.alert("Error occurred while fetching location");
+    } else {
+      Alert.alert("Permissions to read location aren't granted");
+    }
   };
 
   const generateReference = uri => {
@@ -94,24 +121,6 @@ const CustomActions = ({
   };
 
   // we get the current location of the device
-  const getLocation = async () => {
-    let permissions = await Location.requestForegroundPermissionsAsync();
-
-    if (permissions?.granted) {
-      const location = await Location.getCurrentPositionAsync({});
-      console.log("TEST: The location received: ", location);
-      if (location) {
-        onSend({
-          location: {
-            longitude: location.coords.longitude,
-            latitude: location.coords.latitude,
-          },
-        });
-      } else Alert.alert("Error occurred while fetching location");
-    } else {
-      Alert.alert("Permissions to read location aren't granted");
-    }
-  };
 
   return (
     <TouchableOpacity style={styles.container} onPress={onActionPress}>
