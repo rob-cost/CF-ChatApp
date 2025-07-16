@@ -120,7 +120,6 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
   };
 
   const renderCustomActions = props => {
-    console.log("TEST: show props: ", props);
     return (
       <CustomActions
         {...props}
@@ -133,7 +132,6 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
 
   const renderCustomView = props => {
     const { currentMessage } = props;
-    console.log("TEST: show props 2: ", currentMessage);
     if (currentMessage.location) {
       return (
         <MapView
@@ -157,7 +155,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: color }]}>
-      <View>
+      {/* <View>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("ChatBot");
@@ -165,7 +163,7 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
         >
           <Text style={styles.chatbotText}>Ask Chat-Bot!</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <GiftedChat
         messages={messages}
         onSend={messages => onSend(messages)}

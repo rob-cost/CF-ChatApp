@@ -1,18 +1,8 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  wrapperStyle,
-  iconTextStyle,
-  Alert,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
-import { useState } from "react";
-import { ref } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 const CustomActions = ({
@@ -23,7 +13,7 @@ const CustomActions = ({
   userID,
 }) => {
   const actionSheet = useActionSheet();
-  const [image, setImage] = useState(null); // Create a state for images
+  const messageID = uuidv4();
 
   const onActionPress = () => {
     const options = [
@@ -50,7 +40,8 @@ const CustomActions = ({
       }
     );
   };
-  const messageID = uuidv4();
+
+  // we are sending the current location data
   const getLocation = async () => {
     let permissions = await Location.requestForegroundPermissionsAsync();
 
@@ -59,8 +50,9 @@ const CustomActions = ({
       console.log("TEST: The location received: ", location);
       if (location) {
         onSend([
+          // must be an array
           {
-            _id: messageID,
+            _id: messageID, // must have a message ID
             createdAt: new Date(),
             user: {
               _id: userID,
@@ -77,50 +69,65 @@ const CustomActions = ({
       Alert.alert("Permissions to read location aren't granted");
     }
   };
-
+  // we are giving unique name to a created image
   const generateReference = uri => {
     const timeStamp = new Date().getTime();
     const imageName = uri.split("/")[uri.split("/").length - 1];
     return `${userID}-${timeStamp}-${imageName}`;
   };
 
+  // we created a function for uploading and sending images
+  const uploadAndSendImage = async imageURI => {
+    console.log("TEST: Image URI", imageURI);
+    if (!imageURI) {
+      console.log("Image URI is undefined or not existing");
+      return;
+    }
+    const uniqueRefString = generateReference(imageURI);
+    const response = await fetch(imageURI);
+    const blob = await response.blob();
+    const newUploadRef = ref(storage, uniqueRefString);
+    uploadBytes(newUploadRef, blob).then(async snapshot => {
+      console.log("File has been uploaded successfully");
+      const imageURL = await getDownloadURL(snapshot.ref);
+      onSend([
+        // must be an array
+        {
+          _id: messageID, // must have a message ID
+          createdAt: new Date(),
+          user: {
+            _id: userID,
+          },
+
+          image: imageURL,
+        },
+      ]);
+    });
+  };
+
   // we can select images and videos through ImagePicker library
   const pickImage = async () => {
-    let permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (permission?.granted) {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["images", "videos"],
-        allowsEditing: true,
-      });
+    let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissions?.granted) {
+      let result = await ImagePicker.launchImageLibraryAsync();
       if (!result.canceled) {
-        const imageURI = result.assets[0].uri;
-        const uniqueRefString = generateReference(imageURI);
-        const response = await fetch(imageURI);
-        const blob = await response.blob();
-        const newUploadRef = ref(storage, "image123");
-        uploadBytes(newUploadRef, blob).then(async snapshot => {
-          console.log("File has been uploaded successfully");
-        });
-      } else {
-        Alert.alert("Permission not granted");
-      }
+        await uploadAndSendImage(result.assets[0].uri);
+      } else if (result.canceled) {
+        console.log("Nothing selected");
+      } else Alert.alert("Permissions haven't been granted.");
     }
   };
 
   // we can take photos using ImagePicker library
   const takePhoto = async () => {
     let permissions = await ImagePicker.requestCameraPermissionsAsync();
-    console.log("Permission takePhoto" + permissions);
-
     if (permissions?.granted) {
       let result = await ImagePicker.launchCameraAsync();
-
-      if (!result.canceled) setImage(result.assets[0]);
-      else setImage(null);
+      if (!result.canceled) {
+        await uploadAndSendImage(result.assets[0].uri);
+      } else Alert.alert("Permissions haven't been granted.");
     }
   };
-
-  // we get the current location of the device
 
   return (
     <TouchableOpacity style={styles.container} onPress={onActionPress}>

@@ -30,7 +30,7 @@ const App = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const connectionStatus = useNetInfo(); // Returns boolean value depending from the connection state
-  const storage = getStorage();
+  const storage = getStorage(app);
 
   // Check tthe connection status
   useEffect(() => {
