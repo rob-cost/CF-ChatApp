@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import styles from "../styles/CustomActionsStyle";
 
 const CustomActions = ({
   wrapperStyle,
@@ -137,27 +138,5 @@ const CustomActions = ({
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: 26,
-    height: 26,
-    marginLeft: 10,
-    marginBottom: 10,
-  },
-  wrapper: {
-    borderRadius: 13,
-    borderColor: "#b2b2b2",
-    borderWidth: 2,
-    flex: 1,
-  },
-  iconText: {
-    color: "#b2b2b2",
-    fontWeight: "bold",
-    fontSize: 10,
-    backgroundColor: "transparent",
-    textAlign: "center",
-  },
-});
 
 export default CustomActions;

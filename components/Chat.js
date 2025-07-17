@@ -179,6 +179,4 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
   );
 };
 
-/* --- STYLE OF THE PAGE --- */
-
 export default Chat;
