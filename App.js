@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { Alert } from "react-native";
 import Start from "./components/Start";
 import Chat from "./components/Chat";
 import { NavigationContainer } from "@react-navigation/native";
@@ -95,8 +94,8 @@ const App = () => {
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const connectionStatus = useNetInfo(); // Returns boolean value depending from the connection state
   const storage = getStorage(app);
+  const connectionStatus = useNetInfo(); // Returns boolean value depending from the connection state
 
   // Check tthe connection status
   useEffect(() => {
