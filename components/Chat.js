@@ -7,19 +7,12 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import {
-  View,
-  StyleSheet,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomActions from "./CustomActions";
 import MapView from "react-native-maps";
+import styles from "../styles/ChatStyle";
 
 const Chat = ({ route, navigation, db, isConnected, storage }) => {
   const { name, color, userID } = route.params; // Received name, userID and color from Start.js while navigating
@@ -187,17 +180,5 @@ const Chat = ({ route, navigation, db, isConnected, storage }) => {
 };
 
 /* --- STYLE OF THE PAGE --- */
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  chatbotText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "300",
-    margin: "10",
-    textAlign: "center",
-  },
-});
 
 export default Chat;
